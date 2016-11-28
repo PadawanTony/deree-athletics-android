@@ -14,14 +14,14 @@
             android:name=".MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:label="@string/app_name"
+            android:label="Deree Athletics"
             >
         </activity>
         <activity
             android:name=".Login"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:label="@string/app_name">
+            android:label="Deree Athletics">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -31,13 +31,13 @@
             android:name=".View_Program"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:label="@string/app_name">
+            android:label="View Exercise Program">
         </activity>
         <activity
             android:name=".Request_Program"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:label="@string/app_name">
+            android:label="Request Exercise Program">
         </activity>
     </application>
 
