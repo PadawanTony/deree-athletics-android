@@ -1,0 +1,325 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6D9C2">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Request Program"
+            android:id="@+id/textView"
+            android:gravity="center_horizontal" />
+
+
+        <!--Personal Details-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Personal Details"
+            android:id="@+id/textView2"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="20dp"
+                android:background="@color/colorPrimaryDark"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Height: "
+                android:id="@+id/textView3"
+                android:gravity="center_horizontal" />
+
+            <NumberPicker
+                android:id="@+id/ambNum"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="#72B297"
+                >
+            </NumberPicker>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="20dp"
+                android:background="@color/colorPrimaryDark"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Weight: "
+                android:id="@+id/textView4"
+                android:gravity="center_horizontal" />
+
+            <NumberPicker
+                android:id="@+id/ambNum2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="#72B297"
+                >
+            </NumberPicker>
+        </LinearLayout>
+
+
+        <!--Fitness History-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Fitness History"
+            android:id="@+id/textView5"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Have you been involved with any sort of exercise in the past?"
+            android:id="@+id/textView6"
+            android:gravity="center_horizontal"
+            android:layout_weight="1.08" />
+        <RadioGroup
+            android:id="@+id/meet_amb_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/meet_amb_yes_radiobut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yes"
+                android:checked="true"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                />
+
+            <RadioButton
+                android:id="@+id/meet_amb_no_radiobut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Are you currently exercising?"
+            android:id="@+id/textView7"
+            android:gravity="center_horizontal"
+            android:layout_weight="1.08" />
+        <RadioGroup
+            android:id="@+id/meet_amb_radio_group2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/meet_amb_yes_radiobut2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yes"
+                android:checked="true"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                />
+
+            <RadioButton
+                android:id="@+id/meet_amb_no_radiobut2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="If yes, how intense?"
+            android:id="@+id/textView8"
+            android:gravity="center_horizontal"
+            android:layout_weight="1.08" />
+        <RadioGroup
+            android:id="@+id/meet_amb_radio_group3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/meet_amb_yes_radiobut3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Light"
+                android:checked="true"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                />
+
+            <RadioButton
+                android:id="@+id/meet_amb_no_radiobut3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Moderate"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                />
+
+            <RadioButton
+                android:id="@+id/meets_amb_no_radiobut3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Heavy"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="What activities are you involved in?"
+            android:id="@+id/textView9"
+            android:gravity="center_horizontal"
+            android:layout_weight="1.08" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:inputType="text" />
+
+
+        <!--Exercise Goals-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Exercise Goals"
+            android:id="@+id/textView10"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Which days would you like to exercise"
+            android:id="@+id/textView11"
+            android:gravity="center_horizontal" />
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/campus_tour_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday"
+                android:padding="5dp"
+                />
+
+            <CheckBox
+                android:id="@+id/presen3tation_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday"
+                android:padding="5dp"
+                />
+
+            <CheckBox
+                android:id="@+id/present4ation_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday"
+                android:padding="5dp"
+                />
+
+            <CheckBox
+                android:id="@+id/presentation_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thursday"
+                android:padding="5dp"
+                />
+
+            <CheckBox
+                android:id="@+id/pre6sentation_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friday"
+                android:padding="5dp"
+                />
+
+            <CheckBox
+                android:id="@+id/pregesentation_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saturday"
+                android:padding="5dp"
+                />
+
+            <CheckBox
+                android:id="@+id/prescentation_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunday"
+                android:padding="5dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Comments for the fitness trainer:"
+            android:id="@+id/textView12"
+            android:gravity="center_horizontal"
+            android:layout_weight="1.08" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:inputType="text" />
+
+
+
+    </LinearLayout>
+</ScrollView>
