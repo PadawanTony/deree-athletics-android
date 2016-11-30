@@ -131,21 +131,21 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/pastExerciseNoV"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/no"
+                android:padding="5dp"
+                />
+
+            <RadioButton
                 android:id="@+id/pastExerciseYesV"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/yes"
                 android:checked="true"
-                android:padding="5dp"
-                />
-
-            <RadioButton
-                android:id="@+id/pastExerciseNoV"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/no"
                 android:padding="5dp"
                 />
         </RadioGroup>
@@ -167,21 +167,21 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/currentlyExercisingNoV"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/no"
+                android:padding="5dp"
+                />
+
+            <RadioButton
                 android:id="@+id/currentlyExercisingYesV"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/yes"
                 android:checked="true"
-                android:padding="5dp"
-                />
-
-            <RadioButton
-                android:id="@+id/currentlyExercisingNoV"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/no"
                 android:padding="5dp"
                 />
         </RadioGroup>
@@ -197,7 +197,7 @@
             android:gravity="center_horizontal"
             android:layout_weight="1.08" />
         <RadioGroup
-            android:id="@+id/currentExercisingIntensity"
+            android:id="@+id/currentExercisingIntensityV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

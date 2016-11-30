@@ -1,6 +1,8 @@
 package com.example.nourhan.dereeathletics;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,7 +11,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
-import android.widget.Toast;
+import android.widget.RadioGroup;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Nourhan on 11/25/16.
@@ -20,12 +30,18 @@ public class Request_Program extends AppCompatActivity {
     private NumberPicker heightV, weightV;
     private CheckBox mondayV, tuesdayV, wednesdayV, thursdayV, fridayV, saturdayV, sundayV;
     private RadioButton pastExerciseYesV, pastExerciseNoV, currentlyExercisingYesV, currentlyExercisingNoV, currentExercisingIntensityLightV, currentExercisingIntensityModerateV, currentExercisingIntensityHeavyV;
+    private RadioGroup pastExerciseV, currentlyExercisingV, currentExercisingIntensityV;
 
     JSONParser jsonParser = new JSONParser();
-    private static String url_create_request = "http://ashoka.students.acg.edu/" +
-            "ws_test/create_request.php";
+    private static String url_create_program = "https://athletics-deree.herokuapp.com/submitProgramAndroid";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
+    private String activities, comments;
+    private int height, weight;
+    private boolean monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    private int mondayInt, tuesdayInt, wednesdayInt, thursdayInt, fridayInt, saturdayInt, sundayInt;
+    private int pastExerciseRadioButtonID, currentlyExercisingRadioButtonID, currentExercisingIntensityRadioButtonID, indxPastExerciseRadioButton, indxcurrentlyExercisingRadioButton, indxCurrentExercisingIntensityRadioButton;
+
 
     public void initializeEditTexts() {
         activitiesV = (EditText) findViewById(R.id.activitiesV);
@@ -57,6 +73,12 @@ public class Request_Program extends AppCompatActivity {
         currentExercisingIntensityHeavyV = (RadioButton) findViewById(R.id.currentExercisingIntensityHeavyV);
     }
 
+    public void initializeRadioGroups() {
+        pastExerciseV = (RadioGroup) findViewById(R.id.pastExerciseV);
+        currentlyExercisingV = (RadioGroup) findViewById(R.id.currentlyExercisingV);
+        currentExercisingIntensityV = (RadioGroup) findViewById(R.id.currentExercisingIntensityV);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,20 +88,19 @@ public class Request_Program extends AppCompatActivity {
         initializeNumberpickers();
         initializeCheckboxes();
         initializeRadioButtons();
+        initializeRadioGroups();
 
         /** Configure heightV NumberPicker **/
         heightV.setMinValue(100);
         heightV.setMaxValue(250);
         heightV.setValue(160);
         heightV.setWrapSelectorWheel(false);
-        Log.e("heightV", String.valueOf(heightV.getValue()));
 
         /** Configure weightV NumberPicker **/
         weightV.setMinValue(40);
         weightV.setMaxValue(200);
         weightV.setValue(70);
         weightV.setWrapSelectorWheel(false);
-        Log.e("weightV", String.valueOf(weightV.getValue()));
     }
 
     public void cancelRequest(View view) {
@@ -89,126 +110,152 @@ public class Request_Program extends AppCompatActivity {
     }
 
     public void submitRequest(View view) {
-        office = officeText.getText().toString();
-        Log.v("Antony", "office: " + office);
 
-        formal = is_formal.isChecked();
-        Log.d("HELLOOOOOO", String.valueOf(formal));
-        if (formal) {
-            dressCode = "formal";
-        } else dressCode = "casual";
+        /** Get Values of EditTexts **/
+        activities = activitiesV.getText().toString(); //true or null
+        comments = commentsV.getText().toString(); //true or null
+        Log.e("activities", activities);
+        Log.e("comments", comments);
 
-        ambNum = amb_num.getValue();
+        /** Get Values of NumberPickers **/
+        height = heightV.getValue(); //default 160
+        weight = weightV.getValue(); //default 70
+        Log.e("heightV", String.valueOf(height));
+        Log.e("weightV", String.valueOf(weight));
 
+        /** Get Values of Checkboxes **/
+        monday = mondayV.isChecked(); //true or false
+        mondayInt = (monday) ? 1 : 0;
+        tuesday = tuesdayV.isChecked(); //true or false
+        tuesdayInt = (tuesday) ? 1 : 0;
+        wednesday = wednesdayV.isChecked(); //true or false
+        wednesdayInt = (wednesday) ? 1 : 0;
+        thursday = thursdayV.isChecked(); //true or false
+        thursdayInt = (thursday) ? 1 : 0;
+        friday = fridayV.isChecked(); //true or false
+        fridayInt = (friday) ? 1 : 0;
+        saturday = saturdayV.isChecked(); //true or false
+        saturdayInt = (saturday) ? 1 : 0;
+        sunday = sundayV.isChecked(); //true or false
+        sundayInt = (sunday) ? 1 : 0;
+        Log.e("monday", String.valueOf(monday));
+        Log.e("tuesday", String.valueOf(tuesday));
+        Log.e("wednesday", String.valueOf(wednesday));
+        Log.e("thursday", String.valueOf(thursday));
+        Log.e("friday", String.valueOf(friday));
+        Log.e("saturday", String.valueOf(saturday));
+        Log.e("sunday", String.valueOf(sunday));
+        Log.e("mondayInt", String.valueOf(mondayInt));
+        Log.e("tuesdayInt", String.valueOf(tuesdayInt));
+        Log.e("wednesdayInt", String.valueOf(wednesdayInt));
+        Log.e("thursdayInt", String.valueOf(thursdayInt));
+        Log.e("fridayInt", String.valueOf(fridayInt));
+        Log.e("saturdayInt", String.valueOf(saturdayInt));
+        Log.e("sundayInt", String.valueOf(sundayInt));
 
-        event_startTime = "'" + start.getText().toString() + ":00'";
+        /** Get Values of RadioButtons **/
+        //pastExercise
+        pastExerciseRadioButtonID = pastExerciseV.getCheckedRadioButtonId();
+        View pastExerciseRadioButton = pastExerciseV.findViewById(pastExerciseRadioButtonID);
+        indxPastExerciseRadioButton = pastExerciseV.indexOfChild(pastExerciseRadioButton);
+        Log.e("indexPastExerciseRB", String.valueOf(indxPastExerciseRadioButton));
 
+        //currentlyExercising
+        currentlyExercisingRadioButtonID = currentlyExercisingV.getCheckedRadioButtonId();
+        View currentlyExercisingRadioButton = currentlyExercisingV.findViewById(currentlyExercisingRadioButtonID);
+        indxcurrentlyExercisingRadioButton = currentlyExercisingV.indexOfChild(currentlyExercisingRadioButton);
+        Log.e("indexCurrentlyExRB", String.valueOf(indxcurrentlyExercisingRadioButton));
 
-        event_endTime = "'" + end.getText().toString() + ":00'";
+        //exerciseIntensity
+        currentExercisingIntensityRadioButtonID = currentExercisingIntensityV.getCheckedRadioButtonId();
+        View currentExercisingIntensityRadioButton = currentExercisingIntensityV.findViewById(currentExercisingIntensityRadioButtonID);
+        indxCurrentExercisingIntensityRadioButton = currentExercisingIntensityV.indexOfChild(currentExercisingIntensityRadioButton);
+        Log.e("indexExIntensityRB", String.valueOf(indxCurrentExercisingIntensityRadioButton));
 
-        amb_arrival = "'" + arrival.getText().toString() + ":00'";
-
-        amb_dep = "'" + departure.getText().toString() + ":00'";
-
-
-        eventLocation = eventLocText.getText().toString();
-
-        meetingTime = "'" + meeting.getText().toString() + ":00'";
-
-
-        name = nameText.getText().toString();
-        description = descText.getText().toString();
-
-//        String eventDate;
-        event_date = "'" + date.getText().toString() + "'";
-
-
-        pickup = "N/A";
-        dropoff = "N/A";
-        typeOfEvent = "tour";
-
-        if (presentation.isChecked()) {
-            typeOfEvent = "presentation";
-        } else if (other.isChecked()) {
-            typeOfEvent = "other";
-        } else if (social.isChecked()) {
-            typeOfEvent = "social";
-        }
-
-        if (tour.isChecked()) {
-            pickup = pickupText.getText().toString();
-            dropoff = dropoffText.getText().toString();
-            typeOfEvent = "tour";
-        }
-
-        contactName = contactNameText.getText().toString();
-        contactDetails = contactDetailsText.getText().toString();
-        duties = dutiesText.getText().toString();
-
-        if (formal) {
-            dressCode = "formal";
-        } else dressCode = "casual";
-
-        if (meetAmbNo.isChecked()) {
-            meeting_loc = "N/A";
-
-        } else meeting_loc = meeting_locText.getText().toString();
-
-
-        //CHECK FOR ALL FIELDS
-        if (name.isEmpty()) {
-            Log.d("NAME", name);
-            Toast.makeText(this, "Please make sure the Event's Name field is filled...", Toast.LENGTH_LONG).show();
-        } else if (office.isEmpty()) {
-            Log.d("NAME", office);
-            Toast.makeText(this, "Please make sure the Office's Name field is filled...", Toast.LENGTH_LONG).show();
-        } else if (date.getText().toString().isEmpty()) {
-            Log.d("NAME", date.getText().toString());
-            Toast.makeText(this, "Please make sure you specified the event date...", Toast.LENGTH_LONG).show();
-        } else if (description.isEmpty()) {
-            Log.d("NAME", description);
-            Toast.makeText(this, "Please make sure the Event's Description field is filled...", Toast.LENGTH_LONG).show();
-        } else if (!tour.isChecked() && !social.isChecked() && !other.isChecked() && !presentation.isChecked()) {
-            Toast.makeText(this, "Please make sure you picked an Event Type...", Toast.LENGTH_LONG).show();
-        } else if (eventLocation.isEmpty()) {
-            Log.d("NAME TYPE", eventLocation);
-            Toast.makeText(this, "Please make sure you specified where the event will take place...", Toast.LENGTH_LONG).show();
-        } else if (start.getText().toString().isEmpty()) {
-            Log.d("NAME", start.getText().toString());
-            Toast.makeText(this, "Please make sure you specified when the event starts...", Toast.LENGTH_LONG).show();
-        } else if (end.getText().toString().isEmpty()) {
-            Log.d("NAME", end.getText().toString());
-            Toast.makeText(this, "Please make sure ou specified when the event ends...", Toast.LENGTH_LONG).show();
-        } else if (arrival.getText().toString().isEmpty()) {
-            Log.d("NAME", start.getText().toString());
-            Toast.makeText(this, "Please make sure you specified when the ambassadors should arrive...", Toast.LENGTH_LONG).show();
-        } else if (end.getText().toString().isEmpty()) {
-            Log.d("NAME", end.getText().toString());
-            Toast.makeText(this, "Please make sure ou specified when the ambassadors should leave...", Toast.LENGTH_LONG).show();
-        } else if ((pickupText.getText().toString().isEmpty() || dropoffText.getText().toString().isEmpty()) && tour.isChecked()) {
-            Log.d("NAME", pickupText.getText().toString());
-            Toast.makeText(this, "Please make sure you specified both a pickup and dropoff location for the tour...", Toast.LENGTH_LONG).show();
-        } else if (amb_num.getValue() == 0) {
-            Log.d("NAME", String.valueOf(amb_num.getValue()));
-            Toast.makeText(this, "Please make sure you specified the number of ambassadors assisting...", Toast.LENGTH_LONG).show();
-        } else if (dutiesText.getText().toString().isEmpty()) {
-            Log.d("NAME", dutiesText.getText().toString());
-            Toast.makeText(this, "Please make sure you specified duties of the ambassadors assisting...", Toast.LENGTH_LONG).show();
-        } else if (meeting_loc.isEmpty() && meetAmbYes.isChecked()) {
-            Log.d("HELLOOOOOO", meeting_loc);
-            Toast.makeText(this, "You chose to meet up with our Ambassadors before the event, \n Please make sure you entered a meeting place...", Toast.LENGTH_LONG).show();
-        } else if (meeting.getText().toString().equals("00:00") && meetAmbYes.isChecked()) {
-            Log.d("HELLOOOOOO", meetingTime);
-            Toast.makeText(this, "You chose to meet up with our Ambassadors before the event, \n Please make sure you entered a meeting time...", Toast.LENGTH_LONG).show();
-        } else if (contactDetails.isEmpty() || contactName.isEmpty()) {
-            Toast.makeText(this, "Please make sure you entered your contact details...", Toast.LENGTH_LONG).show();
-        } else {
-            new CreateRequest().execute();
-//            new CreateEvent().execute();
-//            new CreateContact().execute();
-        }
+        /** Request Program **/
+        new RequestProgram().execute();
     }
 
+    /**
+     * Background Async Task to Request Program
+     */
+    class RequestProgram extends AsyncTask<Object, String, String> {
 
+        private ProgressDialog pDialog;
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Request_Program.this);
+            pDialog.setMessage("Sending Request..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        /**
+         * Creating Request
+         */
+        protected String doInBackground(Object... args) {
+
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("userID", Integer.toString(1)));
+            params.add(new BasicNameValuePair("height", Integer.toString(height)));
+            params.add(new BasicNameValuePair("weight", Integer.toString(weight)));
+            params.add(new BasicNameValuePair("pastExercise", Integer.toString(indxPastExerciseRadioButton)));
+            params.add(new BasicNameValuePair("currentlyExercising", Integer.toString(indxcurrentlyExercisingRadioButton)));
+            params.add(new BasicNameValuePair("currentExercisingIntensity", Integer.toString(indxCurrentExercisingIntensityRadioButton)));
+            params.add(new BasicNameValuePair("activities", activities));
+            params.add(new BasicNameValuePair("monday", Integer.toString(mondayInt)));
+            params.add(new BasicNameValuePair("tuesday", Integer.toString(tuesdayInt)));
+            params.add(new BasicNameValuePair("wednesday", Integer.toString(wednesdayInt)));
+            params.add(new BasicNameValuePair("thursday", Integer.toString(thursdayInt)));
+            params.add(new BasicNameValuePair("friday", Integer.toString(fridayInt)));
+            params.add(new BasicNameValuePair("saturday", Integer.toString(saturdayInt)));
+            params.add(new BasicNameValuePair("sunday", Integer.toString(sundayInt)));
+            params.add(new BasicNameValuePair("comments", comments));
+
+            // getting JSON Object
+            // Note that create-program url accepts POST method
+            JSONObject json = jsonParser.makeHttpRequest(url_create_program,
+                    "POST", params);
+
+            // check log cat for response
+            Log.d("JSON Response: ", json.toString());
+
+            // check for success tag
+            try {
+                int success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    // successfully created request
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+
+                    // closing this screen
+                    finish();
+                } else {
+                    // failed to create request
+                    Log.v("ERROR: ", "Failure to insert whatever");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once done
+            pDialog.dismiss();
+        }
+    }
 
 }
