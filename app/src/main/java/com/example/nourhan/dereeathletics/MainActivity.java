@@ -42,20 +42,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void requestProgram(View view){
         Intent sendRequest = new Intent(this, Request_Program.class);
-        sendRequest.putExtra("ID", "1");
+        sendRequest.putExtra("ID", "7");
         startActivity(sendRequest);
     }
 
     public void viewProgram(View view){
         Intent sendRequest = new Intent(this, View_Program.class);
-        sendRequest.putExtra("ID", "1");
+        sendRequest.putExtra("ID", "1"); //ToDo: Getthe real ID
         startActivity(sendRequest);
     }
-
-//    public void history (View view){
-//        Intent history = new Intent(this, View_Request_History.class);
-//        startActivity(history);
-//    }
 
 }
 

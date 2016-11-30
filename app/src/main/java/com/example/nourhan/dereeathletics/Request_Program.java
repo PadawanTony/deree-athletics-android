@@ -26,6 +26,7 @@ import java.util.List;
  */
 public class Request_Program extends AppCompatActivity {
 
+    private String userID;
     private EditText activitiesV, commentsV;
     private NumberPicker heightV, weightV;
     private CheckBox mondayV, tuesdayV, wednesdayV, thursdayV, fridayV, saturdayV, sundayV;
@@ -83,6 +84,19 @@ public class Request_Program extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.request_program);
+
+        /** Get User's userID **/
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                Log.e("EXTRAS: ", "extras is null");
+            } else {
+                userID = extras.getString("ID");
+            }
+        } else {
+            userID = "2";
+        }
+        Log.e("userID", userID);
 
         initializeEditTexts();
         initializeNumberpickers();
@@ -203,7 +217,7 @@ public class Request_Program extends AppCompatActivity {
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("userID", Integer.toString(1)));
+            params.add(new BasicNameValuePair("userID", userID));
             params.add(new BasicNameValuePair("height", Integer.toString(height)));
             params.add(new BasicNameValuePair("weight", Integer.toString(weight)));
             params.add(new BasicNameValuePair("pastExercise", Integer.toString(indxPastExerciseRadioButton)));
@@ -232,6 +246,7 @@ public class Request_Program extends AppCompatActivity {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
+                    //ToDo: Show success message with toast
                     // successfully created request
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
