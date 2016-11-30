@@ -110,7 +110,7 @@ public class JSONParser {
                 HttpResponse httpResponse = httpClient.execute(httpPost);
                 HttpEntity httpEntity = httpResponse.getEntity();
                 is = httpEntity.getContent();
-                //Log.e("Antony", is.toString());
+                //Log.e("Nourhan", is.toString());
 
             }else if(method == "GET"){
                 // request method is GET
