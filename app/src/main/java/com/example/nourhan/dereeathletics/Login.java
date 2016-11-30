@@ -69,11 +69,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         // setup buttons
         mSubmit = (Button) findViewById(R.id.login);
-        mRegister = (Button) findViewById(R.id.register);
+//        mRegister = (Button) findViewById(R.id.register);
 
         // register listeners
         mSubmit.setOnClickListener(this);
-        mRegister.setOnClickListener(this);
+//        mRegister.setOnClickListener(this);
 
     }
 
@@ -107,11 +107,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 password = pass.getText().toString();
                 new AttemptLogin().execute();
                 break;
-            case R.id.register:
+//            case R.id.register:
 //                Intent i = new Intent(this, Register.class);
 //                startActivity(i);
-                Log.e("REGISTER:", "You clicked the register button!");
-                break;
+//                Log.e("REGISTER:", "You clicked the register button!");
+//                break;
 
             default:
                 break;
@@ -148,8 +148,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                 // check your log for json program
                 Log.d("Login attempt", json.toString());
-                JSONObject userLoggedIn = json.getJSONObject("user");
-                Log.e("userID", userLoggedIn.getString("id"));
+
                 // json success tag
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
@@ -160,6 +159,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     SharedPreferences.Editor edit = sp.edit();
                     edit.putString("username", username);
                     edit.apply();
+
+                    /** Get User's ID **/
+                    JSONObject userLoggedIn = json.getJSONObject("user");
+                    Log.e("userID", userLoggedIn.getString("id"));
 
                     Intent i = new Intent(Login.this, MainActivity.class);
                     i.putExtra("ID", userLoggedIn.getString("id"));

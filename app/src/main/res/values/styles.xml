@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
 <!-- Base application theme. -->
 <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,9 +6,9 @@
     <!--App branding color for the app bar-->
     <item name="colorPrimary">#790A1B</item>
     <!--Darker variant for the status bar-->
-    <item name="android:colorPrimaryDark">#25030E</item>
+    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">#25030E</item>
     <!--UI controls and text fields-->
-    <item name="android:colorAccent">#72B297</item>
+    <item name="android:colorAccent" tools:targetApi="lollipop">#72B297</item>
 
 </style>
 

@@ -68,18 +68,18 @@
 
         <!-- Link to Register Screen -->
 
-        <Button
-            android:id="@+id/register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:background="#FF6347"
-            android:text="Not a member? Register!"
-            android:textAllCaps="false"
-            android:textColor="#F6D9C2"
-            android:textStyle="italic"
-            android:textSize="16sp"
-            />
+        <!--<Button-->
+            <!--android:id="@+id/register"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dip"-->
+            <!--android:background="#FF6347"-->
+            <!--android:text="Not a member? Register!"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="#F6D9C2"-->
+            <!--android:textStyle="italic"-->
+            <!--android:textSize="16sp"-->
+            <!--/>-->
     </LinearLayout>
 
 </LinearLayout>
