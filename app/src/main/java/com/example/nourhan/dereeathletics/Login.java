@@ -60,7 +60,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
@@ -102,7 +101,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.login:
                 username = user.getText().toString();
@@ -134,7 +132,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
             // Check for success tag
             int success;
 
@@ -151,7 +148,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                 // check your log for json program
                 Log.d("Login attempt", json.toString());
-
+                JSONObject userLoggedIn = json.getJSONObject("user");
+                Log.e("userID", userLoggedIn.getString("id"));
                 // json success tag
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
@@ -164,6 +162,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     edit.apply();
 
                     Intent i = new Intent(Login.this, MainActivity.class);
+                    i.putExtra("ID", userLoggedIn.getString("id"));
                     finish();
                     startActivity(i);
                     return json.getString(TAG_MESSAGE);

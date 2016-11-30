@@ -26,6 +26,8 @@ import java.util.List;
  */
 public class View_Program extends AppCompatActivity {
 
+    Bundle extras;
+
     String trainerComments, trainerName, ID;
 
     private static final String TAG_SUCCESS = "success";
@@ -54,16 +56,14 @@ public class View_Program extends AppCompatActivity {
         setContentView(R.layout.view_progran);
 
         if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
+            extras = getIntent().getExtras();
             if (extras == null) {
                 Log.e("EXTRAS: ", "extras in null");
             } else {
                 ID = extras.getString("ID");
-//                TextView tvID = (TextView) findViewById(R.id.userID);
-//                tvID.setText(ID);
             }
         } else {
-            ID = "1";
+            ID = "7";
         }
 
         //Load Additional Details
@@ -167,6 +167,7 @@ public class View_Program extends AppCompatActivity {
     public void cancel(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("ID", extras.getString("ID"));
         startActivity(intent);
     }
 

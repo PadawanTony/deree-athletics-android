@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -25,6 +26,8 @@ import java.util.List;
  * Created by Nourhan on 11/25/16.
  */
 public class Request_Program extends AppCompatActivity {
+
+    Bundle extras;
 
     private String userID;
     private EditText activitiesV, commentsV;
@@ -87,7 +90,7 @@ public class Request_Program extends AppCompatActivity {
 
         /** Get User's userID **/
         if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
+            extras = getIntent().getExtras();
             if (extras == null) {
                 Log.e("EXTRAS: ", "extras is null");
             } else {
@@ -120,6 +123,7 @@ public class Request_Program extends AppCompatActivity {
     public void cancelRequest(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("ID", extras.getString("ID"));
         startActivity(intent);
     }
 
@@ -246,9 +250,10 @@ public class Request_Program extends AppCompatActivity {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    //ToDo: Show success message with toast
                     // successfully created request
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    i.putExtra("message", "Request Submitted!");
+                    i.putExtra("ID", extras.getString("ID"));
                     startActivity(i);
 
                     // closing this screen
@@ -256,6 +261,15 @@ public class Request_Program extends AppCompatActivity {
                 } else {
                     // failed to create request
                     Log.v("ERROR: ", "Failure to insert whatever");
+
+                    // successfully created request
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    i.putExtra("message", "ERROR: Failed to submit request");
+                    i.putExtra("ID", extras.getString("ID"));
+                    startActivity(i);
+
+                    // closing this screen
+                    finish();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

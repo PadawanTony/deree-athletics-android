@@ -6,16 +6,28 @@ package com.example.nourhan.dereeathletics;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /** Show toast message if we return from request_program **/
+        extras = getIntent().getExtras();
+        if (extras.getString("message") == null) {
+            Log.e("EXTRAS: ", "extras.getString(\"message\") is null");
+        } else {
+            Toast.makeText(MainActivity.this, extras.getString("message"), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -42,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void requestProgram(View view){
         Intent sendRequest = new Intent(this, Request_Program.class);
-        sendRequest.putExtra("ID", "7");
+        sendRequest.putExtra("ID", extras.getString("ID"));
         startActivity(sendRequest);
     }
 
     public void viewProgram(View view){
         Intent sendRequest = new Intent(this, View_Program.class);
-        sendRequest.putExtra("ID", "1"); //ToDo: Getthe real ID
+        sendRequest.putExtra("ID", extras.getString("ID"));
         startActivity(sendRequest);
     }
 
