@@ -64,7 +64,7 @@
                 android:layout_weight="0.54" />
 
             <NumberPicker
-                android:id="@+id/ambNum"
+                android:id="@+id/heightV"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="#c92A3B"
@@ -88,7 +88,7 @@
                 android:layout_weight="0.54" />
 
             <NumberPicker
-                android:id="@+id/ambNum2"
+                android:id="@+id/weightV"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="#c92A3B"
@@ -125,13 +125,13 @@
             android:gravity="center_horizontal"
             android:layout_weight="1.08" />
         <RadioGroup
-            android:id="@+id/meet_amb_radio_group"
+            android:id="@+id/pastExerciseV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/meet_amb_yes_radiobut"
+                android:id="@+id/pastExerciseYesV"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                 />
 
             <RadioButton
-                android:id="@+id/meet_amb_no_radiobut"
+                android:id="@+id/pastExerciseNoV"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -161,13 +161,13 @@
             android:gravity="center_horizontal"
             android:layout_weight="1.08" />
         <RadioGroup
-            android:id="@+id/meet_amb_radio_group2"
+            android:id="@+id/currentlyExercisingV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/meet_amb_yes_radiobut2"
+                android:id="@+id/currentlyExercisingYesV"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -177,7 +177,7 @@
                 />
 
             <RadioButton
-                android:id="@+id/meet_amb_no_radiobut2"
+                android:id="@+id/currentlyExercisingNoV"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -197,13 +197,13 @@
             android:gravity="center_horizontal"
             android:layout_weight="1.08" />
         <RadioGroup
-            android:id="@+id/meet_amb_radio_group3"
+            android:id="@+id/currentExercisingIntensity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/meet_amb_yes_radiobut3"
+                android:id="@+id/currentExercisingIntensityLightV"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
                 />
 
             <RadioButton
-                android:id="@+id/meet_amb_no_radiobut3"
+                android:id="@+id/currentExercisingIntensityModerateV"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
                 />
 
             <RadioButton
-                android:id="@+id/meets_amb_no_radiobut3"
+                android:id="@+id/currentExercisingIntensityHeavyV"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -242,6 +242,7 @@
             android:gravity="center_horizontal"
             android:layout_weight="1.08" />
         <EditText
+            android:id="@+id/activitiesV"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:inputType="text" />
@@ -280,7 +281,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <CheckBox
-                android:id="@+id/campus_tour_checkbox"
+                android:id="@+id/mondayV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Monday"
@@ -288,7 +289,7 @@
                 />
 
             <CheckBox
-                android:id="@+id/presen3tation_checkbox"
+                android:id="@+id/tuesdayV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tuesday"
@@ -296,7 +297,7 @@
                 />
 
             <CheckBox
-                android:id="@+id/present4ation_checkbox"
+                android:id="@+id/wednesdayV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Wednesday"
@@ -304,7 +305,7 @@
                 />
 
             <CheckBox
-                android:id="@+id/presentation_checkbox"
+                android:id="@+id/thursdayV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thursday"
@@ -312,7 +313,7 @@
                 />
 
             <CheckBox
-                android:id="@+id/pre6sentation_checkbox"
+                android:id="@+id/fridayV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Friday"
@@ -320,7 +321,7 @@
                 />
 
             <CheckBox
-                android:id="@+id/pregesentation_checkbox"
+                android:id="@+id/saturdayV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Saturday"
@@ -328,7 +329,7 @@
                 />
 
             <CheckBox
-                android:id="@+id/prescentation_checkbox"
+                android:id="@+id/sundayV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sunday"
@@ -347,6 +348,7 @@
             android:gravity="center_horizontal"
             android:layout_weight="1.08" />
         <EditText
+            android:id="@+id/commentsV"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:inputType="text" />
